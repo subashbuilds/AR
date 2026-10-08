@@ -1,0 +1,48 @@
+name: CI
+
+# Every claim this repository makes is checked by scripts/verify.sh, so CI runs
+# that and nothing else. One of its checks is an expected failure by design; the
+# script encodes that expectation rather than hiding it.
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Install worker dependencies
+        run: |
+          python3 -m pip install --upgrade pip
+          python3 -m pip install -r requirements.txt
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Install web dependencies
+        working-directory: apps/web
+        run: npm install
+
+      - name: Build the web app
+        working-directory: apps/web
+        run: npx vite build
+
+      - name: Install Chromium for the browser run
+        run: npx --yes playwright@1.63.0 install --with-deps chromium
+
+      - name: Verify every claim
+        env:
+          FIXTURE: /tmp/fx2
+        run: sh scripts/verify.sh

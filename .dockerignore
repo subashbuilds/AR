@@ -1,0 +1,12 @@
+# The image builds apps/web from source and copies the worker + API; nothing
+# else needs to reach the daemon.
+apps/api/data
+apps/web/node_modules
+apps/web/dist
+**/__pycache__
+**/.pytest_cache
+.venv
+*.pyc
+docs
+notebooks
+.github

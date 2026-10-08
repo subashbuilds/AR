@@ -1,0 +1,31 @@
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+venv/
+
+# Local scratch
+.tmpviz/
+*.glb
+!tests/fixtures/**/*.glb
+
+# Generated ground-truth fixtures (large, regenerable via tests/make_fixture.py)
+tests/fixtures/*/images/
+tests/fixtures/*/depth/
+tests/fixtures/*/ground_truth.json
+
+# Never commit secrets
+.env
+.env.*
+!.env.example
+
+# Build output
+dist/
+build/
+node_modules/
+
+# Capture API runtime data (uploaded photos, GLB output, sqlite state)
+apps/api/data/
+
+# End-to-end run artifacts
+apps/web/e2e/screenshots/

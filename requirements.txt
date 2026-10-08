@@ -1,0 +1,15 @@
+# Reconstruction worker dependencies.
+# Versions pinned to what was installed and verified on 2026-10-03.
+#
+# OpenCV is the reconstruction engine: SIFT features, USAC_MAGSAC robust
+# estimation, essential-matrix two-view geometry, RANSAC PnP and
+# triangulation. The headless build is required so no system GL libraries
+# (libEGL/libGL) are needed -- see docs/research/technology-decisions.md.
+opencv-python-headless==5.0.0.93
+
+numpy==2.2.6
+scipy==1.15.3
+Pillow==12.3.0
+
+# Test-only
+pytest==8.4.2
